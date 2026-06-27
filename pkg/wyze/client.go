@@ -548,6 +548,9 @@ func (c *Client) hdFrameSize() uint8 {
 	if c.isFloodlight() {
 		return FrameSizeFloodlight
 	}
+	if c.isBulbcam() {
+		return FrameSizeFloodlight
+	}
 	if c.is2K() {
 		return FrameSize2K
 	}
@@ -556,10 +559,14 @@ func (c *Client) hdFrameSize() uint8 {
 
 func (c *Client) is2K() bool {
 	switch c.model {
-	case "HL_CAM3P", "HL_PANP", "HL_CAM4", "HL_DB2", "HL_CFL2":
+	case "HL_CAM3P", "HL_PANP", "HL_CAM4", "HL_DB2", "HL_CFL2", "HL_BC":
 		return true
 	}
 	return false
+}
+
+func (c *Client) isBulbcam() bool {
+	return c.model == "HL_BC"
 }
 
 func (c *Client) isFloodlight() bool {
